@@ -104,7 +104,7 @@ export const CosmicOrbitGame: React.FC<CosmicOrbitGameProps> = ({ onSuccess }) =
             >
               <div className="w-3 h-3 border border-white rounded-full" />
               <span className="absolute -top-4 text-[9px] font-mono text-cyan-300">
-                «САЮЗ МС-25»
+                {language === 'by' ? '«САЮЗ МС-25»' : '«СОЮЗ МС-25»'}
               </span>
             </div>
 
@@ -117,9 +117,9 @@ export const CosmicOrbitGame: React.FC<CosmicOrbitGameProps> = ({ onSuccess }) =
 
             <div className="absolute bottom-3 right-3 bg-black/80 border border-white/20 px-2.5 py-1 rounded text-[11px] font-mono font-bold">
               {isAligned ? (
-                <span className="text-emerald-400">ЗАХОП ДАЗВОЛЕНЫ</span>
+                <span className="text-emerald-400">{language === 'by' ? 'ЗАХОП ДАЗВОЛЕНЫ' : 'ЗАХВАТ РАЗРЕШЕН'}</span>
               ) : (
-                <span className="text-slate-400">ВЫРАЎНОЎВАННЕ...</span>
+                <span className="text-slate-400">{language === 'by' ? 'ВЫРАЎНОЎВАННЕ...' : 'ВЫРАВНИВАНИЕ...'}</span>
               )}
             </div>
           </div>

@@ -73,7 +73,7 @@ export const Header: React.FC = () => {
           {/* Relics Counter */}
           <button
             onClick={() => handleNavClick('codex')}
-            title="Каталог рэліквій"
+            title={language === 'by' ? 'Каталог рэліквій' : 'Каталог реликвий'}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-700 hover:border-amber-500/60 transition cursor-pointer whitespace-nowrap shadow-xs"
           >
             <BookOpen className="w-3.5 h-3.5 text-amber-600" />
@@ -89,7 +89,7 @@ export const Header: React.FC = () => {
           {/* Sound Mute Toggle */}
           <button
             onClick={toggleSound}
-            title={soundMuted ? 'Уключыць гук' : 'Выключыць гук'}
+            title={soundMuted ? (language === 'by' ? 'Уключыць гук' : 'Включить звук') : (language === 'by' ? 'Выключыць гук' : 'Выключить звук')}
             className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300 transition cursor-pointer shrink-0 shadow-xs"
           >
             {soundMuted ? (

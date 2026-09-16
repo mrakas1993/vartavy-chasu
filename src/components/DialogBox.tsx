@@ -76,7 +76,7 @@ export const DialogBox: React.FC<DialogBoxProps> = ({ steps, onComplete }) => {
             {step.avatar === 'skaryna' && '1517'}
             {step.avatar === 'commander' && '1941–1944'}
             {step.avatar === 'cosmonaut' && '2024'}
-            {step.avatar === 'archivist' && 'Архіў'}
+            {step.avatar === 'archivist' && (language === 'by' ? 'Архіў' : 'Архив')}
           </div>
         </div>
 

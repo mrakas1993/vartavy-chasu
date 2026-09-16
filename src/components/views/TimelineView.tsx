@@ -117,11 +117,11 @@ export const TimelineView: React.FC = () => {
       </div>
 
       {/* Timeline List */}
-      <div className="relative border-l-2 border-slate-200 ml-4 sm:ml-28 space-y-8 pl-6 sm:pl-10">
+      <div className="relative border-l-2 border-slate-200 ml-4 sm:ml-32 space-y-8 pl-6 sm:pl-10">
         {filteredEvents.map((item, idx) => (
           <div key={idx} className="relative group">
             {/* Year Stamp */}
-            <div className="sm:absolute sm:-left-36 sm:top-1 text-left sm:text-right w-24 mb-2 sm:mb-0">
+            <div className="sm:absolute sm:-left-44 sm:top-1 text-left sm:text-right w-28 sm:pr-3 mb-2 sm:mb-0">
               <span className="font-mono font-bold text-lg text-amber-800 tracking-wider">
                 {item.year}
               </span>

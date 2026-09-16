@@ -230,7 +230,9 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
               </p>
               <div className="mt-2 flex items-center gap-2 text-xs text-emerald-700 font-mono font-bold">
                 <Award className="w-4 h-4" />
-                <span>+100 б. • Адкрыты экспанаты: «Замак Мір» і «Слуцкі пояс»</span>
+                <span>
+                  +100 б. • {language === 'by' ? 'Адкрыты экспанаты: «Замак Мір» і «Слуцкі пояс»' : 'Открыты экспонаты: «Замок Мир» и «Слуцкий пояс»'}
+                </span>
               </div>
             </div>
           </div>
@@ -238,7 +240,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
           <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
             <button
               onClick={handleReset}
-              title="Паўтарыць"
+              title={language === 'by' ? 'Паўтарыць' : 'Повторить'}
               className="p-2.5 rounded-xl bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200 transition cursor-pointer"
             >
               <RotateCcw className="w-4 h-4" />

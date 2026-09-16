@@ -271,7 +271,7 @@ export const PrintingPressGame: React.FC<PrintingPressGameProps> = ({ onSuccess 
                 </button>
                 <button
                   onClick={handleReset}
-                  title="Паўтарыць"
+                  title={language === 'by' ? 'Паўтарыць' : 'Повторить'}
                   className="p-2 rounded-lg bg-slate-100 text-slate-600 hover:text-slate-900 border border-slate-200 transition cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
