@@ -242,7 +242,7 @@ export const PrintingPressGame: React.FC<PrintingPressGameProps> = ({ onSuccess 
               <div className="flex items-center gap-3">
                 <div className="w-20 h-24 rounded border border-slate-200 overflow-hidden shrink-0 shadow-xs">
                   <img
-                    src="/images/skaryna_bible.jpg"
+                    src="./images/skaryna_bible.jpg"
                     alt="Тытульны аркуш Скарыны"
                     className="w-full h-full object-cover"
                   />

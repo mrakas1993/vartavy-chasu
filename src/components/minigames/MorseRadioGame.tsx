@@ -251,7 +251,7 @@ export const MorseRadioGame: React.FC<MorseRadioGameProps> = ({ onSuccess }) => 
           <div className="flex items-center gap-4">
             <div className="w-16 h-20 rounded border border-slate-200 overflow-hidden bg-slate-50 p-1 flex items-center justify-center shrink-0 shadow-xs">
               <img
-                src="/images/partizan_medal.png"
+                src="./images/partizan_medal.png"
                 alt="Медаль Партызану"
                 className="max-h-full max-w-full object-contain"
               />

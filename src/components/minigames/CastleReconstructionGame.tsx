@@ -79,7 +79,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
       <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 mb-6 shadow-md">
         <div className="relative h-72 sm:h-96 w-full">
           <img
-            src="/images/mir_castle.jpg"
+            src="./images/mir_castle.jpg"
             alt="Мірскі замак"
             className="w-full h-full object-cover object-center"
           />
@@ -212,7 +212,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 rounded-xl overflow-hidden border border-slate-200 shrink-0 shadow-xs">
               <img
-                src="/images/slutsk_belt.jpg"
+                src="./images/slutsk_belt.jpg"
                 alt="Слуцкі пояс"
                 className="w-full h-full object-cover"
               />

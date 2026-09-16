@@ -106,7 +106,7 @@ export const TRANSLATIONS = {
         by: 'Рэканструкцыя працы друкарскага станка і адбітка тытульнага ліста',
         ru: 'Реконструкция работы печатного станка и оттиска титульного листа'
       },
-      image: '/images/skaryna_woodcut.jpg'
+      image: './images/skaryna_woodcut.jpg'
     },
     epoch2: {
       badge: {
@@ -125,7 +125,7 @@ export const TRANSLATIONS = {
         by: 'Даследаванне абарончых вежаў і фартыфікацыйных вузлоў Мірскага замка',
         ru: 'Исследование оборонительных башен и фортификационных узлов Мирского замка'
       },
-      image: '/images/mir_castle.jpg'
+      image: './images/mir_castle.jpg'
     },
     epoch3: {
       badge: {
@@ -144,7 +144,7 @@ export const TRANSLATIONS = {
         by: 'Налада радыёстанцыі «Поўнач» і прыём аператыўнай шыфраграмы',
         ru: 'Настройка радиостанции «Север» и прием оперативной шифрограммы'
       },
-      image: '/images/brest_fortress.jpg'
+      image: './images/brest_fortress.jpg'
     },
     epoch4: {
       badge: {
@@ -163,7 +163,7 @@ export const TRANSLATIONS = {
         by: 'Мадэляванне стыкоўкі з МКС і каліброўка аптычнага датчыка БКА',
         ru: 'Моделирование стыковки с МКС и калибровка оптического датчика БКА'
       },
-      image: '/images/vasilevskaya.jpg'
+      image: './images/vasilevskaya.jpg'
     }
   },
   dialogs: {
@@ -176,7 +176,7 @@ export const TRANSLATIONS = {
           ru: 'Приветствие тебе, исследователь родного края. «Ибо от рождения звери, бродящие в пустыне, знают норы свои; птицы, летающие в воздухе, знают гнезда свои... так и люди, где родились и вскормлены, к тому месту великую любовь имеют».'
         },
         avatar: 'skaryna',
-        imageSrc: '/images/skaryna_woodcut.jpg'
+        imageSrc: './images/skaryna_woodcut.jpg'
       },
       {
         speaker: { by: 'Францыск Скарына', ru: 'Франциск Скорина' },
@@ -186,7 +186,7 @@ export const TRANSLATIONS = {
           ru: 'Труд книгопечатника требует безупречной строгости. В наборную раму укладывается гравированная доска мастера, затем кожаными мацыками наносится краска из сажи и олифы. Помоги осуществить первый оттиск титульного листа!'
         },
         avatar: 'skaryna',
-        imageSrc: '/images/skaryna_woodcut.jpg'
+        imageSrc: './images/skaryna_woodcut.jpg'
       }
     ],
     castleEpoch: [
@@ -198,7 +198,7 @@ export const TRANSLATIONS = {
           ru: 'Беларусь по праву называют «Страной замков». В XVI веке вдоль рубежей вырос пояс укреплений: Мир, Несвиж, Лида, Крево, Новогрудок. Они сочетали военную мощь с великолепием Ренессанса.'
         },
         avatar: 'architect',
-        imageSrc: '/images/mir_castle.jpg'
+        imageSrc: './images/mir_castle.jpg'
       },
       {
         speaker: { by: 'Дойлід-рэстаўратар', ru: 'Зодчий-реставратор' },
@@ -208,7 +208,7 @@ export const TRANSLATIONS = {
           ru: 'Мирский замок уникален: 5 мощных башен обеспечивали круговой огонь, стены толщиной до 3 метров выдерживали пушечные ядра, а внутри располагался дворец. Исследуйте ключевые узлы и подтвердите схему обороны!'
         },
         avatar: 'architect',
-        imageSrc: '/images/mir_castle.jpg'
+        imageSrc: './images/mir_castle.jpg'
       }
     ],
     partisanEpoch: [
@@ -220,7 +220,7 @@ export const TRANSLATIONS = {
           ru: 'Бойцы нашей бригады держат под контролем лесной край. На оккупированной земле действуют сотни подпольных групп, связных и партизанских зон, где восстановлена советская власть.'
         },
         avatar: 'commander',
-        imageSrc: '/images/partisans_ww2.jpg'
+        imageSrc: './images/partisans_ww2.jpg'
       },
       {
         speaker: { by: 'Камандзір атрада Кастусь', ru: 'Командир отряда Кастусь' },
@@ -230,7 +230,7 @@ export const TRANSLATIONS = {
           ru: 'Из Центрального штаба партизанского движения передают срочную директиву. Для связи мы используем портативную рацию «Север». Настрой приемник на рабочую волну 7.15 МГц и зафиксируй кодовое слово!'
         },
         avatar: 'commander',
-        imageSrc: '/images/partisans_ww2.jpg'
+        imageSrc: './images/partisans_ww2.jpg'
       }
     ],
     spaceEpoch: [
@@ -242,7 +242,7 @@ export const TRANSLATIONS = {
           ru: 'Белорусская научная школа имеет давние космические традиции. Полеты Петра Климука, Владимира Ковалёнка и Олега Новицкого стали гордостью Отечества, а полет Марины Василевской в марте 2024 года дал новый импульс исследованиям.'
         },
         avatar: 'cosmonaut',
-        imageSrc: '/images/vasilevskaya.jpg'
+        imageSrc: './images/vasilevskaya.jpg'
       },
       {
         speaker: { by: 'Кіраўнік навуковай праграмы', ru: 'Руководитель научной программы' },
@@ -252,7 +252,7 @@ export const TRANSLATIONS = {
           ru: 'Перед нами стоят две инженерные задачи: провести выравнивание корабля по стыковочной оси МКС и выполнить калибровку оптико-электронного комплекса спутника БКА для анализа лесных массивов Беларуси.'
         },
         avatar: 'cosmonaut',
-        imageSrc: '/images/klimuk.jpg'
+        imageSrc: './images/klimuk.jpg'
       }
     ]
   },

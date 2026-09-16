@@ -77,7 +77,7 @@ export const CosmicOrbitGame: React.FC<CosmicOrbitGameProps> = ({ onSuccess }) =
           <div className="relative w-full h-80 bg-[#0a0f1d] border border-slate-300 rounded-xl overflow-hidden flex items-center justify-center shadow-inner">
             {/* Real Space Background */}
             <img
-              src="/images/satellite_space.jpg"
+              src="./images/satellite_space.jpg"
               alt="Космас"
               className="absolute inset-0 w-full h-full object-cover opacity-25 filter brightness-75"
             />
@@ -239,7 +239,7 @@ export const CosmicOrbitGame: React.FC<CosmicOrbitGameProps> = ({ onSuccess }) =
           <div className="flex items-center gap-4">
             <div className="w-20 h-24 rounded border border-slate-200 overflow-hidden shrink-0 shadow-xs">
               <img
-                src="/images/vasilevskaya.jpg"
+                src="./images/vasilevskaya.jpg"
                 alt="Марына Васілеўская"
                 className="w-full h-full object-cover object-top"
               />
