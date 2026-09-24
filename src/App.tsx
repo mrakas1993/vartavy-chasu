@@ -33,7 +33,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col justify-between selection:bg-amber-100 selection:text-amber-900">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col justify-between">
       <Header />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">

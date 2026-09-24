@@ -146,7 +146,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
           onClick={() => handleInspect('tower')}
           className={`p-4 rounded-xl border text-left cursor-pointer transition ${
             inspectedTower
-              ? 'bg-emerald-50 border-emerald-300 text-slate-800 shadow-xs'
+              ? 'bg-emerald-50 border-emerald-300 text-emerald-950 shadow-xs'
               : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-amber-400'
           }`}
         >
@@ -156,7 +156,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
             </span>
             {inspectedTower && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
           </div>
-          <p className="text-[11px] leading-relaxed text-slate-600">
+          <p className={`text-[11px] leading-relaxed ${inspectedTower ? 'text-emerald-900/90' : 'text-slate-600'}`}>
             {language === 'by'
               ? '25-метровая дамінанта з каванымі варотамі, пад’ёмным мостам і байніцамі падэшвеннага бою.'
               : '25-метровая доминанта с коваными воротами, подъемным мостом и бойницами подошвенного боя.'}
@@ -167,7 +167,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
           onClick={() => handleInspect('walls')}
           className={`p-4 rounded-xl border text-left cursor-pointer transition ${
             inspectedWalls
-              ? 'bg-emerald-50 border-emerald-300 text-slate-800 shadow-xs'
+              ? 'bg-emerald-50 border-emerald-300 text-emerald-950 shadow-xs'
               : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-amber-400'
           }`}
         >
@@ -177,7 +177,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
             </span>
             {inspectedWalls && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
           </div>
-          <p className="text-[11px] leading-relaxed text-slate-600">
+          <p className={`text-[11px] leading-relaxed ${inspectedWalls ? 'text-emerald-900/90' : 'text-slate-600'}`}>
             {language === 'by'
               ? 'Муроўка таўшчынёй да 3 метраў з чырвонай цэглы і валуноў на вапнавым растворы.'
               : 'Кладка толщиной до 3 метров из красного кирпича и валунов на известковом растворе.'}
@@ -188,7 +188,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
           onClick={() => handleInspect('palace')}
           className={`p-4 rounded-xl border text-left cursor-pointer transition ${
             inspectedPalace
-              ? 'bg-emerald-50 border-emerald-300 text-slate-800 shadow-xs'
+              ? 'bg-emerald-50 border-emerald-300 text-emerald-950 shadow-xs'
               : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-amber-400'
           }`}
         >
@@ -198,7 +198,7 @@ export const CastleReconstructionGame: React.FC<CastleReconstructionGameProps> =
             </span>
             {inspectedPalace && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
           </div>
-          <p className="text-[11px] leading-relaxed text-slate-600">
+          <p className={`text-[11px] leading-relaxed ${inspectedPalace ? 'text-emerald-900/90' : 'text-slate-600'}`}>
             {language === 'by'
               ? 'Трохпавярховы рэнесансны корпус з раскошнымі залямі, ляпнінай і кафлянымі печкамі.'
               : 'Трехэтажный ренессансный корпус с роскошными залами, лепниной и изразцовыми печами.'}

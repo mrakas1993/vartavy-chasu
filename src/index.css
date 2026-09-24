@@ -6,6 +6,11 @@
     background-color: #f8fafc;
     color: #0f172a;
   }
+
+  ::selection {
+    background-color: #fef3c7;
+    color: #78350f;
+  }
 }
 
 .font-cinzel {
@@ -16,18 +21,29 @@
   font-family: 'Playfair Display', Georgia, serif;
 }
 
-/* Elegant light museum scrollbars */
+/* Elegant light museum scrollbars aligned with design system */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: #e2e8f0;
+  border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #cbd5e1;
+}
+
+/* Accessible motion: intentional reduction that preserves functional feedback */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none;
+    opacity: 1;
+  }
+  * {
+    transition-duration: 0.05s !important;
+  }
 }
