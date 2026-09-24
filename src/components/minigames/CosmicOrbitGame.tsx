@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGame } from '../../context/GameContext';
 import { TRANSLATIONS } from '../../data/translations';
 import { soundEngine } from '../../utils/audio';
 import confetti from 'canvas-confetti';
-import { Compass, Award, ArrowRight, CheckCircle2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { Compass, Award, ArrowRight, CheckCircle2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Eye, Box } from 'lucide-react';
+import { SpaceDocking3D } from './SpaceDocking3D';
 
 interface CosmicOrbitGameProps {
   onSuccess: () => void;
@@ -17,15 +18,42 @@ export const CosmicOrbitGame: React.FC<CosmicOrbitGameProps> = ({ onSuccess }) =
   const [posY, setPosY] = useState<number>(-40);
   const [stage, setStage] = useState<1 | 2 | 3>(1);
   const [selectedSensor, setSelectedSensor] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
+  const [thrusterActive, setThrusterActive] = useState<{ dx: number; dy: number; timestamp: number } | null>(null);
 
   const distance = Math.sqrt(posX * posX + posY * posY);
   const isAligned = distance < 12;
 
   const moveShip = (dx: number, dy: number) => {
     soundEngine.playThruster();
+    setThrusterActive({ dx, dy, timestamp: Date.now() });
     setPosX(prev => Math.max(-50, Math.min(50, prev + dx)));
     setPosY(prev => Math.max(-50, Math.min(50, prev + dy)));
   };
+
+  // Keyboard navigation for RCS Thrusters (Arrow keys and WASD)
+  useEffect(() => {
+    if (stage !== 1) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (['ArrowUp', 'KeyW'].includes(e.code)) {
+        e.preventDefault();
+        moveShip(0, -10);
+      } else if (['ArrowDown', 'KeyS'].includes(e.code)) {
+        e.preventDefault();
+        moveShip(0, 10);
+      } else if (['ArrowLeft', 'KeyA'].includes(e.code)) {
+        e.preventDefault();
+        moveShip(-10, 0);
+      } else if (['ArrowRight', 'KeyD'].includes(e.code)) {
+        e.preventDefault();
+        moveShip(10, 0);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [stage]);
 
   const handleConfirmDocking = () => {
     if (!isAligned) return;
@@ -73,54 +101,91 @@ export const CosmicOrbitGame: React.FC<CosmicOrbitGameProps> = ({ onSuccess }) =
             </p>
           </div>
 
-          {/* Telemetry Display with real satellite space background */}
-          <div className="relative w-full h-80 bg-[#0a0f1d] border border-slate-300 rounded-xl overflow-hidden flex items-center justify-center shadow-inner">
-            {/* Real Space Background */}
-            <img
-              src="./images/satellite_space.jpg"
-              alt="Космас"
-              className="absolute inset-0 w-full h-full object-cover opacity-25 filter brightness-75"
-            />
+          {/* Interactive Viewport (3D WebGL with 2D Fallback) */}
+          <div className="relative w-full h-88 sm:h-96 bg-[#060a14] border border-cyan-900/60 rounded-2xl overflow-hidden shadow-2xl">
+            {viewMode === '3d' ? (
+              <SpaceDocking3D
+                posX={posX}
+                posY={posY}
+                isAligned={isAligned}
+                language={language}
+                thrusterActive={thrusterActive}
+              />
+            ) : (
+              /* 2D Fallback Mode */
+              <div className="relative w-full h-full flex items-center justify-center">
+                <img
+                  src="./images/satellite_space.jpg"
+                  alt="Космас"
+                  className="absolute inset-0 w-full h-full object-cover opacity-25 filter brightness-75"
+                />
 
-            {/* Target ISS Docking Ring */}
-            <div className="relative w-36 h-36 rounded-full border border-dashed border-cyan-400/60 flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full border border-cyan-400/80 flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                {/* Target ISS Docking Ring */}
+                <div className="relative w-36 h-36 rounded-full border border-dashed border-cyan-400/60 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full border border-cyan-400/80 flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                  </div>
+                  <div className="absolute w-full h-px bg-cyan-500/30" />
+                  <div className="absolute h-full w-px bg-cyan-500/30" />
+                </div>
+
+                {/* User Ship Reticle */}
+                <div
+                  className={`absolute w-20 h-20 border rounded flex items-center justify-center transition-transform duration-100 ${
+                    isAligned
+                      ? 'border-emerald-400 bg-emerald-500/10'
+                      : 'border-cyan-400 bg-cyan-500/10'
+                  }`}
+                  style={{
+                    transform: `translate(${posX * 2.2}px, ${posY * 2.2}px)`
+                  }}
+                >
+                  <div className="w-3 h-3 border border-white rounded-full" />
+                  <span className="absolute -top-4 text-[9px] font-mono text-cyan-300">
+                    {language === 'by' ? '«САЮЗ МС-25»' : '«СОЮЗ МС-25»'}
+                  </span>
+                </div>
               </div>
-              <div className="absolute w-full h-px bg-cyan-500/30" />
-              <div className="absolute h-full w-px bg-cyan-500/30" />
-            </div>
+            )}
 
-            {/* User Ship Reticle */}
-            <div
-              className={`absolute w-20 h-20 border rounded flex items-center justify-center transition-transform duration-100 ${
-                isAligned
-                  ? 'border-emerald-400 bg-emerald-500/10'
-                  : 'border-cyan-400 bg-cyan-500/10'
-              }`}
-              style={{
-                transform: `translate(${posX * 2.2}px, ${posY * 2.2}px)`
-              }}
+            {/* Overdrive 3D / 2D Toggle Button */}
+            <button
+              onClick={() => setViewMode(prev => prev === '3d' ? '2d' : '3d')}
+              className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-lg bg-black/80 hover:bg-black/95 border border-cyan-400/60 text-[10px] font-mono font-bold text-cyan-300 hover:text-white transition cursor-pointer flex items-center gap-1.5 shadow-md backdrop-blur-xs"
             >
-              <div className="w-3 h-3 border border-white rounded-full" />
-              <span className="absolute -top-4 text-[9px] font-mono text-cyan-300">
-                {language === 'by' ? '«САЮЗ МС-25»' : '«СОЮЗ МС-25»'}
-              </span>
-            </div>
+              <Box className="w-3.5 h-3.5 text-cyan-400" />
+              <span>{viewMode === '3d' ? (language === 'by' ? '3D РЭЖЫМ' : '3D РЕЖИМ') : (language === 'by' ? '2D РЭЖЫМ' : '2D РЕЖИМ')}</span>
+            </button>
 
-            {/* HUD Status */}
-            <div className="absolute top-3 left-3 bg-black/80 border border-white/20 p-2 rounded text-[10px] font-mono text-cyan-300">
+            {/* HUD Status Overlay */}
+            <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-xs border border-white/20 p-2.5 rounded-xl text-[10px] font-mono text-cyan-300 shadow-md pointer-events-none">
+              <div className="flex items-center gap-2 mb-1 border-b border-cyan-500/30 pb-0.5">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping inline-block" />
+                <span className="font-bold tracking-wider">{language === 'by' ? 'ТЭЛЕМЕТРЫЯ' : 'ТЕЛЕМЕТРИЯ'}</span>
+              </div>
               <div>DX: {posX > 0 ? `+${posX}` : posX}</div>
               <div>DY: {posY > 0 ? `+${posY}` : posY}</div>
               <div>{t.dockingDistance[language]} {distance.toFixed(1)}%</div>
             </div>
 
-            <div className="absolute bottom-3 right-3 bg-black/80 border border-white/20 px-2.5 py-1 rounded text-[11px] font-mono font-bold">
+            {/* Alignment Target Status Pill */}
+            <div className="absolute bottom-3 right-3 bg-black/85 backdrop-blur-xs border border-white/20 px-3 py-1.5 rounded-xl text-[11px] font-mono font-bold shadow-md pointer-events-none">
               {isAligned ? (
-                <span className="text-emerald-400">{language === 'by' ? 'ЗАХОП ДАЗВОЛЕНЫ' : 'ЗАХВАТ РАЗРЕШЕН'}</span>
+                <div className="flex items-center gap-1.5 text-emerald-400">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>{language === 'by' ? 'ЗАХОП ДАЗВОЛЕНЫ' : 'ЗАХВАТ РАЗРЕШЕН'}</span>
+                </div>
               ) : (
-                <span className="text-slate-400">{language === 'by' ? 'ВЫРАЎНОЎВАННЕ...' : 'ВЫРАВНИВАНИЕ...'}</span>
+                <div className="flex items-center gap-1.5 text-amber-400">
+                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                  <span>{language === 'by' ? 'ВЫРАЎНОЎВАННЕ...' : 'ВЫРАВНИВАНИЕ...'}</span>
+                </div>
               )}
+            </div>
+
+            {/* Flight Direction Guide / Keyboard Cue */}
+            <div className="absolute bottom-3 left-3 hidden sm:flex items-center gap-1.5 bg-black/75 backdrop-blur-xs border border-white/10 px-2.5 py-1 rounded-lg text-[9px] font-mono text-slate-300 pointer-events-none">
+              <span>{language === 'by' ? 'Кіраванне: стрэлкі / WASD' : 'Управление: стрелки / WASD'}</span>
             </div>
           </div>
 
