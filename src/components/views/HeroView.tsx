@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGame } from '../../context/GameContext';
 import { TRANSLATIONS } from '../../data/translations';
 import { soundEngine } from '../../utils/audio';
 import { Compass, BookOpen, Clock, HelpCircle, Award, ChevronRight, Lock, CheckCircle2 } from 'lucide-react';
+
+const HERO_SLIDES = [
+  {
+    src: '/images/skaryna_bible.jpg',
+    label: { by: 'XVI стагоддзе · Кнігадрукаванне', ru: 'XVI век · Книгопечатание' },
+  },
+  {
+    src: '/images/mir_castle.jpg',
+    label: { by: 'XVI–XVIII стст. · Замкавае дойлідства', ru: 'XVI–XVIII вв. · Замковое зодчество' },
+  },
+  {
+    src: '/images/brest_fortress.jpg',
+    label: { by: '1941–1944 гг. · Усенародны подзвіг', ru: '1941–1944 гг. · Всенародный подвиг' },
+  },
+  {
+    src: '/images/satellite_space.jpg',
+    label: { by: '2024 г. · Сучасная навука і космас', ru: '2024 г. · Современная наука и космос' },
+  },
+];
+
+const SLIDE_DURATION = 4500; // ms per slide
 
 export const HeroView: React.FC = () => {
   const {
@@ -13,8 +34,32 @@ export const HeroView: React.FC = () => {
     completedEpochs
   } = useGame();
 
+  const [slideIdx, setSlideIdx] = useState(0);
+  const [transitioning, setTransitioning] = useState(false);
+
   const t = TRANSLATIONS.hero;
   const ep = TRANSLATIONS.epochs;
+
+  // Auto-advance slideshow
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTransitioning(true);
+      setTimeout(() => {
+        setSlideIdx(prev => (prev + 1) % HERO_SLIDES.length);
+        setTransitioning(false);
+      }, 600);
+    }, SLIDE_DURATION);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleDotClick = (idx: number) => {
+    if (idx === slideIdx) return;
+    setTransitioning(true);
+    setTimeout(() => {
+      setSlideIdx(idx);
+      setTransitioning(false);
+    }, 600);
+  };
 
   const handleStartQuest = (epoch: 1 | 2 | 3 | 4 = 1) => {
     soundEngine.playClick();
@@ -29,25 +74,67 @@ export const HeroView: React.FC = () => {
     { num: 4 as const, data: ep.epoch4, btnText: language === 'by' ? 'Адкрыць раздзел космасу' : 'Открыть раздел космоса' },
   ];
 
+  const slide = HERO_SLIDES[slideIdx];
+
   return (
     <div className="space-y-16 pb-20 pt-4">
-      {/* Hero Showcase Banner */}
-      <section className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-white via-[#faf9f6] to-[#f1f5f9] border border-slate-200/90 p-8 sm:p-14 shadow-md">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-56 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Hero Showcase Banner — full-bleed photo background with slideshow */}
+      <section className="relative rounded-3xl overflow-hidden border border-slate-200/60 shadow-xl min-h-[420px] sm:min-h-[480px] flex flex-col justify-end">
 
-        <div className="relative z-10 max-w-4xl mx-auto space-y-6 text-center">
-          <h1 className="text-3xl sm:text-5xl font-serif-title font-bold text-slate-900 leading-tight tracking-tight">
-            {t.title[language]}
-          </h1>
+        {/* Background photo slideshow */}
+        <div className="absolute inset-0">
+          {HERO_SLIDES.map((s, i) => (
+            <img
+              key={s.src}
+              src={s.src}
+              alt=""
+              aria-hidden="true"
+              className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 ${
+                i === slideIdx && !transitioning ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
+          {/* Dark gradient overlay for readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+        </div>
 
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto font-sans">
-            {t.desc[language]}
-          </p>
+        {/* Slide label (epoch name) */}
+        <div className="absolute top-5 left-5 z-10">
+          <span className="inline-block px-3 py-1 rounded-lg bg-black/60 backdrop-blur-sm border border-white/20 text-[10px] font-mono font-bold text-amber-300 tracking-widest uppercase">
+            {slide.label[language]}
+          </span>
+        </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+        {/* Slideshow dots */}
+        <div className="absolute top-5 right-5 z-10 flex gap-1.5">
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handleDotClick(i)}
+              aria-label={`Слайд ${i + 1}`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                i === slideIdx ? 'bg-amber-400 scale-125' : 'bg-white/50 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Text content over the photo */}
+        <div className="relative z-10 p-8 sm:p-14 space-y-6">
+          <div className="max-w-3xl space-y-4">
+            <h1 className="text-3xl sm:text-5xl font-serif-title font-bold text-white leading-tight tracking-tight drop-shadow-lg">
+              {t.title[language]}
+            </h1>
+
+            <p className="text-sm sm:text-base text-white/85 leading-relaxed max-w-2xl font-sans drop-shadow">
+              {t.desc[language]}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4">
             <button
               onClick={() => handleStartQuest(1)}
-              className="px-6 py-3.5 rounded-xl bg-red-700 hover:bg-red-800 text-white font-semibold text-sm flex items-center gap-2 shadow-md shadow-red-700/20 hover:scale-[1.02] transition cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-red-700 hover:bg-red-800 text-white font-semibold text-sm flex items-center gap-2 shadow-md shadow-red-900/40 hover:scale-[1.02] transition cursor-pointer"
             >
               <Compass className="w-4 h-4 text-amber-200" />
               <span>{t.startQuestBtn[language]}</span>
@@ -59,9 +146,9 @@ export const HeroView: React.FC = () => {
                 soundEngine.playClick();
                 setCurrentView('codex');
               }}
-              className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-sm flex items-center gap-2 shadow-xs transition hover:scale-[1.02] cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-sm text-white border border-white/30 font-semibold text-sm flex items-center gap-2 transition hover:scale-[1.02] cursor-pointer"
             >
-              <BookOpen className="w-4 h-4 text-amber-600" />
+              <BookOpen className="w-4 h-4 text-amber-300" />
               <span>{t.exploreCodexBtn[language]}</span>
             </button>
           </div>
