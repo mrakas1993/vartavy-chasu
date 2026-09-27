@@ -6,19 +6,19 @@ import { Compass, BookOpen, Clock, HelpCircle, Award, ChevronRight, Lock, CheckC
 
 const HERO_SLIDES = [
   {
-    src: '/images/skaryna_bible.jpg',
+    src: './images/skaryna_bible.jpg',
     label: { by: 'XVI стагоддзе · Кнігадрукаванне', ru: 'XVI век · Книгопечатание' },
   },
   {
-    src: '/images/mir_castle.jpg',
+    src: './images/mir_castle.jpg',
     label: { by: 'XVI–XVIII стст. · Замкавае дойлідства', ru: 'XVI–XVIII вв. · Замковое зодчество' },
   },
   {
-    src: '/images/brest_fortress.jpg',
+    src: './images/brest_fortress.jpg',
     label: { by: '1941–1944 гг. · Усенародны подзвіг', ru: '1941–1944 гг. · Всенародный подвиг' },
   },
   {
-    src: '/images/satellite_space.jpg',
+    src: './images/satellite_space.jpg',
     label: { by: '2024 г. · Сучасная навука і космас', ru: '2024 г. · Современная наука и космос' },
   },
 ];
